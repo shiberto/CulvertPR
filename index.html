@@ -15,13 +15,15 @@
     h1 { text-align: center; margin-bottom: 10px; font-size: 18px; color: black; }
     form { margin-bottom: 10px; display: flex; gap: 4px; justify-content: center; flex-wrap: wrap; }
     input, button { padding: 4px; font-size: 12px; }
-    table { width: 100%; border-collapse: collapse; background: white; font-size: 12px; }
+    table { width: 100%; border-collapse: collapse; background: white; font-size: 12px; margin-bottom: 10px; }
     th, td { border: 1px solid #ccc; padding: 4px; text-align: center; white-space: nowrap; position: relative; }
     th { background: #000; color: white; font-weight: bold; }
     tr:nth-child(even) { background: #f2f2f2; }
     .delete-btn { visibility: hidden; cursor: pointer; color: red; font-size: 14px; }
     tr:hover .delete-btn { visibility: visible; }
     td.ign { font-weight: bold; }
+    #resetBtn { width: 100%; padding: 6px; font-size: 12px; cursor: pointer; background: #dc3545; color: white; border: none; border-radius: 4px; }
+    #resetBtn:hover { background: #c82333; }
   </style>
 </head>
 <body>
@@ -46,6 +48,9 @@
       </thead>
       <tbody></tbody>
     </table>
+
+    <!-- Reset Button -->
+    <button id="resetBtn">Reset Table</button>
   </div>
 
   <script>
@@ -101,6 +106,13 @@
         updateTable();
         this.reset();
       }
+    });
+
+    // Reset Button functionality
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      players = {};
+      localStorage.removeItem('players');
+      updateTable();
     });
 
     updateTable();
