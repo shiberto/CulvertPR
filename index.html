@@ -11,7 +11,7 @@
   <style>
     * { font-family: 'Automata Black', Arial, sans-serif; font-weight: bold; box-sizing: border-box; }
     body { margin: 20px; background: #f8f9fa; display: flex; justify-content: center; }
-    .container { max-width: 360px; width: 100%; }
+    .container { max-width: 360px; width: 100%; position: relative; }
     h1 { text-align: center; margin-bottom: 10px; font-size: 18px; color: black; }
     form { margin-bottom: 10px; display: flex; gap: 4px; justify-content: center; flex-wrap: wrap; }
     input, button { padding: 4px; font-size: 12px; }
@@ -22,7 +22,19 @@
     .delete-btn { visibility: hidden; cursor: pointer; color: red; font-size: 14px; }
     tr:hover .delete-btn { visibility: visible; }
     td.ign { font-weight: bold; }
-    #resetBtn { width: 100%; padding: 6px; font-size: 12px; cursor: pointer; background: #dc3545; color: white; border: none; border-radius: 4px; }
+    #resetBtn { 
+      position: absolute; 
+      bottom: 0; 
+      right: 0; 
+      margin: 0; 
+      padding: 6px 8px; 
+      font-size: 12px; 
+      cursor: pointer; 
+      background: #dc3545; 
+      color: white; 
+      border: none; 
+      border-radius: 4px; 
+    }
     #resetBtn:hover { background: #c82333; }
   </style>
 </head>
@@ -49,7 +61,7 @@
       <tbody></tbody>
     </table>
 
-    <!-- Reset Button -->
+    <!-- Reset Button in bottom-right corner -->
     <button id="resetBtn">Reset Table</button>
   </div>
 
@@ -80,7 +92,6 @@
           <td><span class="delete-btn" title="Delete">🗑️</span></td>
         `;
 
-        // Delete instantly without confirmation
         row.querySelector('.delete-btn').addEventListener('click', () => {
           delete players[cls];
           localStorage.setItem('players', JSON.stringify(players));
@@ -98,7 +109,6 @@
       const score = parseInt(document.getElementById('score').value.trim());
 
       if (ign && cls && !isNaN(score)) {
-        // Replace only if new score is higher
         if (!players[cls] || score > players[cls].score) {
           players[cls] = { ign, score };
           localStorage.setItem('players', JSON.stringify(players));
@@ -108,7 +118,6 @@
       }
     });
 
-    // Reset Button functionality
     document.getElementById('resetBtn').addEventListener('click', () => {
       players = {};
       localStorage.removeItem('players');
